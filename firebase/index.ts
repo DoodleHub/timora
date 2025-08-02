@@ -1,7 +1,8 @@
+import { initializeAuth, indexedDBLocalPersistence } from '@firebase/auth';
+
 import Constants from 'expo-constants';
 import { getAnalytics, isSupported } from 'firebase/analytics';
 import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
@@ -28,7 +29,9 @@ const app = initializeApp(firebaseConfig);
 
 // Initialize Firebase services
 export const db = getFirestore(app);
-export const auth = getAuth(app);
+export const auth = initializeAuth(app, {
+  persistence: indexedDBLocalPersistence,
+});
 export const storage = getStorage(app);
 
 // Initialize Analytics (only if supported)
